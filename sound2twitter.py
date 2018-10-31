@@ -74,7 +74,21 @@ if PADDING and addlength>0:
 	subprocess.check_call(['ffmpeg','-y','-v','quiet','-f','concat','-safe','0','-i','concat.txt','-c','copy',PRETWIT2])
 else:
 	PRETWIT2=PRETWIT
-subprocess.check_call("ffmpeg -y -v quiet -i {} -pix_fmt yuv420p -vcodec libx264 -vf scale=640:-1 -acodec aac -vb 1024k -minrate 1024k -maxrate 1024k -bufsize 1024k -ar 44100  -ac 2  -strict experimental -r 30  \"{}\"".format(PRETWIT2,OUTFILE))
+subprocess.check_call(
+	['ffmpeg',
+	'-y','-v','quiet',
+	'-i',PRETWIT2,
+	'-pix_fmt','yuv420p',
+	'-vcodec','libx264',
+	'-vf','scale=640:-1',
+	'-acodec','aac',
+	'-vb','1024k',
+	'-minrate','1024k','-maxrate','1024k','-bufsize','1024k',
+	'-ar','44100','-ac','2',
+	'-strict','experimental',
+	'-r','30',
+	OUTFILE]
+)
 
 
 erase_temp_files()
